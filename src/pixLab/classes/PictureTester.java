@@ -99,7 +99,7 @@ public class PictureTester
     //testFixUnderwater();
     //testMirrorVertical();
     //testMirrorVertical2();
-	//  testMirrorHorizontal();
+	//testMirrorHorizontal();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
@@ -108,7 +108,7 @@ public class PictureTester
     //testCopy();
     //testEdgeDetection();
     //testEdgeDetection2();
-    testChromakey();
+    //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
     //testSetRedToHalfValueInTopHalf();

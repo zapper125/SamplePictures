@@ -405,12 +405,42 @@ public class Picture extends SimplePicture
 			for (int col = 0; col < pixels.length; col++)
 			{
 				shiftedValue = (col + amount) % width;
+				if (amount < 0)
+				{
+					shiftedValue = ((col + amount) % width + width) % width;
+				}
 				copied[row][col].setColor(pixels[row][shiftedValue].getColor());
 			}
 		}
 		for (int row = 0; row < pixels.length; row++)
 		{
 			for (int col = 0; col < pixels.length; col++)
+			{
+				pixels[row][col].setColor(copied[row][col].getColor());
+			}
+		}
+	}
+	
+	public void shiftUpDown(int amount)
+	{
+		Pixel[][] pixels = this.getPixels2D();
+		Picture temp = new Picture(this);
+		Pixel [][] copied = temp.getPixels2D();
+		
+		int shiftedValue = amount;
+		int height = pixels.length;
+		
+		for (int row = 0; row < pixels.length; row++)
+		{
+			for (int col = 0; col < pixels[0].length; col++)
+			{
+				shiftedValue = Math.abs((col + amount) % height);
+				copied[row][col].setColor(pixels[row][shiftedValue].getColor());
+			}
+		}
+		for (int row = 0; row < pixels.length; row++)
+		{
+			for (int col = 0; col < pixels[0].length; col++)
 			{
 				pixels[row][col].setColor(copied[row][col].getColor());
 			}
