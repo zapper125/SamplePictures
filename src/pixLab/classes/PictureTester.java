@@ -12,6 +12,21 @@ import java.awt.Color;
  */
 public class PictureTester
 {
+	public static void testSteganography()
+	{
+		Picture source = new Picture("Big Mr._Wheezer.jpg");
+				
+		Picture message = new Picture ("BlackWhiteBunny.jpg");
+		source.explore();
+		message.explore();
+		source.hidePicture(message);
+		source.explore();
+		source.revealPicture();
+		source.explore();
+	
+		
+	}
+	
 	public static void testChromakey()
 	{
 		Picture source = new Picture("2LegCat.jpg");
@@ -81,6 +96,12 @@ public class PictureTester
     swan.edgeDetection(10);
     swan.explore();
   }
+  public static void randomize()
+  {
+	  Picture EtImage = new Picture("EtImage.jpg");
+	  EtImage.explore();
+	  EtImage.xAxisMirror();
+  }
   
   /** Main method for testing.  Every class can have a main
     * method in Java */
@@ -89,6 +110,8 @@ public class PictureTester
     // uncomment a call here to run a test
     // and comment out the ones you don't want
     // to run
+	  randomize();
+	//testSteganography();
     //testZeroBlue();
     //testZeroRed();
     //testKeepOnlyBlue();
