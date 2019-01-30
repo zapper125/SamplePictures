@@ -160,5 +160,11 @@ public class IntArrayWorker
       }
     }
   }
+
+public int getColTotal(int i)
+{
+	// TODO Auto-generated method stub
+	return 0;
+}
  
 }

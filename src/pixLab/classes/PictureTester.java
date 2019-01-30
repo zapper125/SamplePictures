@@ -100,7 +100,7 @@ public class PictureTester
   {
 	  Picture EtImage = new Picture("EtImage.jpg");
 	  EtImage.explore();
-	  EtImage.xAxisMirror();
+	  EtImage.yAxisMirror();
   }
   
   /** Main method for testing.  Every class can have a main

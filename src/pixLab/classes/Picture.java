@@ -161,8 +161,6 @@ public class Picture extends SimplePicture
 		}
 	}
 
-	}
-
 	public void sickoBirb()
 	{
 		int mirrorPoint = 276;
@@ -452,30 +450,92 @@ public class Picture extends SimplePicture
 		int height = pixels.length;
 	}
 
-	public void xAxisMirror()
+	public void yAxisMirror()
 	{
 		Pixel[][] pixels = this.getPixels2D();
-		Picture temp = new Picture(this);
-		Pixel[][] copied = temp.getPixels2D();
 		
 		Pixel leftPixel = null;
 		Pixel rightPixel = null;
 		
-		int length = pixels[0].length;
+		int width = pixels[0].length;
 		int height = pixels.length;
-		int lengthHalf = length/2;
-		int heightHalf = height/2;
+		int widthHalf = width/2;
 		
-		for (int col = 0; col < length; col++)
+		for (int row = 0; row < height; row++)
 		{
-			for (int row = 0; row < height/2; row++)
+			for (int col = 0; col < widthHalf; col++)
 			{
-				leftPixel = pixels[row][col];
-				rightPixel = pixels[height - 1 - row][col];
-				rightPixel.setColor(leftPixel.getColor());
+				rightPixel = pixels[row][col];
+				leftPixel = pixels[row][width - 1 - col];
+				leftPixel.setColor(rightPixel.getColor());
 			}
-			
 		}
+	}
+	
+	
+	public void xAxisMirror()
+	{
+		Pixel[][] pixels = this.getPixels2D();
+		//sets top and bottom pixels to null
+		Pixel topPixel = null;
+		Pixel bottomPixel = null;
+		
+		int height = pixels.length;
+		int heightHalf = height/2;
+		int width = pixels[0].length;
+		for (int col = 0; col < width; col++)
+		{
+			for (int row = 0; row < heightHalf; row++)
+			{
+				bottomPixel = pixels[row][col];
+				topPixel = pixels[height - 1 - row][col];
+				topPixel.setColor(bottomPixel.getColor());
+			}
+		}
+	}
+	
+	public void randomCropPaste(Color changeColor)
+	{
+		Pixel[][] pixels = this.getPixels2D();
+		Pixel[][] cropPaste = this.getPixels2D();
+		
+		Random rand = new Random();
+		
+		//declares 4 ints 2 col(s) and 2 row(s)
+		int randomCol = 0;
+		int randomCol2 = 0;
+		int randomRow = 0;
+		int randomRow2 = 0;
+		
+		//holds values so I can make col and row the smaller ones.
+		int valueHolder = 0;
+		
+		randomCol = rand.nextInt(pixels[0].length) - 1;
+		randomCol2 = rand.nextInt(pixels[0].length) - 1;
+		randomRow = rand.nextInt(pixels.length) - 1;
+		randomRow2 = rand.nextInt(pixels.length) - 1;
+		
+		//assigns Col to the smaller random number of the two
+		if (randomCol > randomCol2)
+		{
+			valueHolder = randomCol;
+			randomCol = randomCol2;
+			randomCol2 = valueHolder; 
+		}
+		//assigns Row to the smaller random number of the two
+		if (randomRow > randomRow2)
+		{
+			valueHolder = randomRow;
+			randomRow = randomRow2;
+			randomRow2 = valueHolder; 
+		}
+		//delclares 4 ints to be where it paste
+		int colPaste = randomCol/2;
+		int colPaste2 = colPaste + (randomCol - randomCol2);
+		int rowPaste = randomRow/2;
+		int rowPaste2 = rowPaste + (randomRow - randomRow2);
+		for (x = randomCol; x < (Col))
+		//copy randomcol to pasteCol do same with all others 
 	}
 
 	public void hidePicture(Picture hidden)
@@ -527,10 +587,13 @@ public class Picture extends SimplePicture
 	 */
 	public static void main(String[] args)
 	{
-		Picture beach = new Picture("seagull.jpg");
+		Picture beach = new Picture("EtImage.jpg");
 		beach.explore();
+		beach.yAxisMirror();
+		beach.xAxisMirror();
+		beach.randomCropPaste(null);
 		beach.explore();
-		beach.createCollage();
+
 	}
 
 } // this } is the end of class Picture, put all new methods before this
