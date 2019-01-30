@@ -458,15 +458,23 @@ public class Picture extends SimplePicture
 		Picture temp = new Picture(this);
 		Pixel[][] copied = temp.getPixels2D();
 		
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		
 		int length = pixels[0].length;
-		
+		int height = pixels.length;
 		int lengthHalf = length/2;
+		int heightHalf = height/2;
 		
-		for (int col = 0; col < lengthHalf; col++)
+		for (int col = 0; col < length; col++)
 		{
-			for (int row = 0;)
-			pixels[length][row] = pixels[col][row];
-			length--;
+			for (int row = 0; row < height/2; row++)
+			{
+				leftPixel = pixels[row][col];
+				rightPixel = pixels[height - 1 - row][col];
+				rightPixel.setColor(leftPixel.getColor());
+			}
+			
 		}
 	}
 
