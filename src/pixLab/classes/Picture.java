@@ -278,50 +278,6 @@ public class Picture extends SimplePicture
 		}
 	}
 
-	public void glitch()
-	{
-		// int imageHeight = pixels.length;
-		Random rand = new Random();
-
-		int mirrorPoint = 0;
-		int mirrorPoint2 = 0;
-		int mirrorPlace = 0;
-		int mirrorPlace2 = 0;
-
-		for (int x = 0; x < 5; x++)
-		{
-
-			mirrorPoint = rand.nextInt(99) + 1;
-			mirrorPoint2 = rand.nextInt(99) + 1;
-			mirrorPlace = rand.nextInt(99) + 1;
-			mirrorPlace2 = rand.nextInt(99) + 1;
-
-			Pixel leftPixel = null;
-			Pixel rightPixel = null;
-			int count = 0;
-			Pixel[][] pixels = this.getPixels2D();
-
-			for (int row = mirrorPlace; row < 100; row++)
-			{
-				for (int col = mirrorPlace2; col < mirrorPoint; col++)
-				{
-					leftPixel = pixels[row][col];
-					rightPixel = pixels[row][mirrorPoint - col + mirrorPoint];
-					rightPixel.setColor(leftPixel.getColor());
-				}
-			}
-			for (int row = 100; row < 100; row++)
-			{
-				for (int col = 100; col < mirrorPoint; col++)
-				{
-					leftPixel = pixels[row][col];
-					rightPixel = pixels[row][mirrorPoint2 - col + mirrorPoint2];
-					rightPixel.setColor(leftPixel.getColor());
-				}
-			}
-		}
-	}
-
 	public Color randomColor()
 	{
 		Color random;
@@ -449,94 +405,8 @@ public class Picture extends SimplePicture
 		int shiftedValue = amount;
 		int height = pixels.length;
 	}
-
-	public void yAxisMirror()
-	{
-		Pixel[][] pixels = this.getPixels2D();
-		
-		Pixel leftPixel = null;
-		Pixel rightPixel = null;
-		
-		int width = pixels[0].length;
-		int height = pixels.length;
-		int widthHalf = width/2;
-		
-		for (int row = 0; row < height; row++)
-		{
-			for (int col = 0; col < widthHalf; col++)
-			{
-				rightPixel = pixels[row][col];
-				leftPixel = pixels[row][width - 1 - col];
-				leftPixel.setColor(rightPixel.getColor());
-			}
-		}
-	}
 	
 	
-	public void xAxisMirror()
-	{
-		Pixel[][] pixels = this.getPixels2D();
-		//sets top and bottom pixels to null
-		Pixel topPixel = null;
-		Pixel bottomPixel = null;
-		
-		int height = pixels.length;
-		int heightHalf = height/2;
-		int width = pixels[0].length;
-		for (int col = 0; col < width; col++)
-		{
-			for (int row = 0; row < heightHalf; row++)
-			{
-				bottomPixel = pixels[row][col];
-				topPixel = pixels[height - 1 - row][col];
-				topPixel.setColor(bottomPixel.getColor());
-			}
-		}
-	}
-	
-	public void randomCropPaste(Color changeColor)
-	{
-		Pixel[][] pixels = this.getPixels2D();
-		Pixel[][] cropPaste = this.getPixels2D();
-		
-		Random rand = new Random();
-		
-		//declares 4 ints 2 col(s) and 2 row(s)
-		int randomCol = 0;
-		int randomCol2 = 0;
-		int randomRow = 0;
-		int randomRow2 = 0;
-		
-		//holds values so I can make col and row the smaller ones.
-		int valueHolder = 0;
-		
-		randomCol = rand.nextInt(pixels[0].length) - 1;
-		randomCol2 = rand.nextInt(pixels[0].length) - 1;
-		randomRow = rand.nextInt(pixels.length) - 1;
-		randomRow2 = rand.nextInt(pixels.length) - 1;
-		
-		//assigns Col to the smaller random number of the two
-		if (randomCol > randomCol2)
-		{
-			valueHolder = randomCol;
-			randomCol = randomCol2;
-			randomCol2 = valueHolder; 
-		}
-		//assigns Row to the smaller random number of the two
-		if (randomRow > randomRow2)
-		{
-			valueHolder = randomRow;
-			randomRow = randomRow2;
-			randomRow2 = valueHolder; 
-		}
-		//delclares 4 ints to be where it paste
-		int colPaste = randomCol/2;
-		int colPaste2 = colPaste + (randomCol - randomCol2);
-		int rowPaste = randomRow/2;
-		int rowPaste2 = rowPaste + (randomRow - randomRow2);
-		for (x = randomCol; x < (Col))
-		//copy randomcol to pasteCol do same with all others 
-	}
 
 	public void hidePicture(Picture hidden)
 	{
@@ -582,6 +452,77 @@ public class Picture extends SimplePicture
 		}
 	}
 
+	public void yAxisMirror()
+	{
+		Pixel[][] pixels = this.getPixels2D();
+		
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		
+		int width = pixels[0].length;
+		int height = pixels.length;
+		int widthHalf = width/2;
+		
+		for (int row = 0; row < height; row++)
+		{
+			for (int col = 0; col < widthHalf; col++)
+			{
+				rightPixel = pixels[row][col];
+				leftPixel = pixels[row][width - 1 - col];
+				leftPixel.setColor(rightPixel.getColor());
+			}
+		}
+	}
+	
+	
+	public void xAxisMirror()
+	{
+		Pixel[][] pixels = this.getPixels2D();
+		//sets top and bottom pixels to null
+		Pixel topPixel = null;
+		Pixel bottomPixel = null;
+		
+		int height = pixels.length;
+		int heightHalf = height/2;
+		int width = pixels[0].length;
+		for (int col = 0; col < width; col++)
+		{
+			for (int row = 0; row < heightHalf; row++)
+			{
+				bottomPixel = pixels[row][col];
+				topPixel = pixels[height - 1 - row][col];
+				topPixel.setColor(bottomPixel.getColor());
+			}
+		}
+	}
+	
+	public void randomMirror()
+	{
+		Pixel leftPixel = null;
+		Pixel rightPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+		
+		int count = 0;
+		int imageHeight1 = pixels.length;
+		int imageLength1 = pixels[0].length;
+		int imageHeight2 = pixels.length;
+		int imageLength2 = pixels[0].length;
+		Random rand = new Random();
+
+		imageHeight1 = rand.nextInt(imageHeight2) + 1;
+		imageLength1 = rand.nextInt(imageLength2) + 1;
+
+			for (int row = 0; row < imageHeight1; row++)
+			{
+				for (int col = 0; col < imageLength1; col++)
+				{
+					rightPixel = pixels[row][col];
+					leftPixel = pixels[row][imageLength1 - 1 - col];
+					leftPixel.setColor(rightPixel.getColor());
+				}
+			}
+	}
+
 	/*
 	 * Main method for testing - each class in Java can have a main method
 	 */
@@ -589,9 +530,10 @@ public class Picture extends SimplePicture
 	{
 		Picture beach = new Picture("EtImage.jpg");
 		beach.explore();
+		beach.randomMirror();
 		beach.yAxisMirror();
 		beach.xAxisMirror();
-		beach.randomCropPaste(null);
+		
 		beach.explore();
 
 	}
