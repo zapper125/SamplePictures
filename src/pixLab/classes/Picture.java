@@ -522,7 +522,56 @@ public class Picture extends SimplePicture
 				}
 			}
 	}
+	
+	public void shiftRight()
+	{
+		Pixel[][] pixels = this.getPixels2D();
+		Picture temp = new Picture(this);
+		Pixel[][] copied = temp.getPixels2D();
 
+		Random rand = new Random();
+		int width = pixels[0].length;
+		int amount = rand.nextInt(width) + 1;
+		int shiftedValue = amount ;
+
+		for (int row = 0; row < pixels.length; row++)
+		{
+			for (int col = 0; col < pixels.length; col++)
+			{
+				shiftedValue = (col + amount) % width;
+				if (amount < 0)
+				{
+					shiftedValue = ((col + amount) % width + width) % width;
+				}
+				copied[row][col].setColor(pixels[row][shiftedValue].getColor());
+			}
+		}
+		for (int row = 0; row < pixels.length; row++)
+		{
+			for (int col = 0; col < pixels.length; col++)
+			{
+				pixels[row][col].setColor(copied[row][col].getColor());
+			}
+		}
+	}
+
+	public void collage()
+	{
+		Picture grinch = new Picture("moon-surface.jpg");
+	    Picture wall = new Picture("EtImage.jpg");
+	    this.copy(grinch,0,0);
+	    this.copy(wall,100,0);
+	    this.copy(grinch,200,0);
+	    Picture flowerNoBlue = new Picture(wall);
+	    this.copy(flowerNoBlue,300,0);
+	    this.copy(grinch,400,0);
+	    this.copy(wall,500,0);
+	    this.mirrorVertical();
+	    this.write("collage.jpg");
+	    this.copy(flowerNoBlue,400,0);
+	    this.copy(grinch,600,0);
+	    this.copy(wall,700,0);
+	}
 	/*
 	 * Main method for testing - each class in Java can have a main method
 	 */
@@ -530,10 +579,11 @@ public class Picture extends SimplePicture
 	{
 		Picture beach = new Picture("EtImage.jpg");
 		beach.explore();
+		beach.collage();
 		beach.randomMirror();
 		beach.yAxisMirror();
+		beach.shiftRight();
 		beach.xAxisMirror();
-		
 		beach.explore();
 
 	}

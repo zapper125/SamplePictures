@@ -98,10 +98,14 @@ public class PictureTester
   }
   public static void randomize()
   {
-	  Picture EtImage = new Picture("EtImage.jpg");
+	  Picture EtImage = new Picture("EtImage.jpeg");
 	  EtImage.explore();
+	  EtImage.collage();
+	  EtImage.randomMirror();
 	  EtImage.yAxisMirror();
+	  EtImage.shiftRight();
 	  EtImage.xAxisMirror();
+	  EtImage.explore();
   }
   
   /** Main method for testing.  Every class can have a main
